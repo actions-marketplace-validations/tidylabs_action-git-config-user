@@ -1,12 +1,14 @@
-const core = require("@actions/core");
-const exec = require('@actions/exec');
-const { graphql } = require("@octokit/graphql");
+import { getInput, setFailed } from "@actions/core";
+import { exec } from "@actions/exec";
+import { graphql } from "@octokit/graphql";
 
 async function run() {
   try {
     // Fetch authenticated user info using GraphQL API.
-    const token = core.getInput("token");
-    let { viewer: { login, name, email, databaseId } } = await graphql({
+    const token = getInput("token");
+    let {
+      viewer: { login, name, email, databaseId },
+    } = await graphql({
       query: `{ viewer { login name email databaseId } }`,
       headers: { authorization: `bearer ${token}` },
     });
@@ -16,10 +18,10 @@ async function run() {
     email ||= `${databaseId}+${login}@users.noreply.github.com`;
 
     // Set name and email using "git config".
-    await exec.exec(`git config --global user.name ${name}`);
-    await exec.exec(`git config --global user.email ${email}`);
+    await exec("git", ["config", "--global", "user.name", name]);
+    await exec("git", ["config", "--global", "user.email", email]);
   } catch (error) {
-    core.setFailed(error.message);
+    setFailed(error.message);
   }
 }
 
