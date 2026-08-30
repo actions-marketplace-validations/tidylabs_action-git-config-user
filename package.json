@@ -8,19 +8,19 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage"
   },
   "dependencies": {
-    "@actions/core": "^3.0.0",
+    "@actions/core": "^3.0.1",
     "@actions/exec": "^3.0.0",
-    "@octokit/graphql": "^9.0.3"
+    "@octokit/graphql": "^9.0.4"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.4",
-    "jest": "^30.3.0",
-    "prettier": "^3.8.1"
+    "@vercel/ncc": "^0.45.0",
+    "jest": "^30.4.2",
+    "prettier": "^3.9.6"
   },
   "jest": {
     "transform": {}
   },
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   }
 }
